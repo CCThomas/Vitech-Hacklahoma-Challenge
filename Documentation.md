@@ -14,3 +14,5 @@
     - \_\_init__(json)
       - Constructor for Patient Class
       - Parses JOSN data 
+    - calculateBMI()
+      - BMI = weight_kg + height_meters^2 = wight_lb + height_in^2 x 703
