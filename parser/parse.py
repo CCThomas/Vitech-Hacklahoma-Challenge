@@ -37,4 +37,7 @@ def parse_patient_data():
         data_quote = my_request.json()
 
         # Create Patient Object
-        patients.append(Patient(data_participant, data_detail["response"]["docs"][0], data_quote["response"]["docs"][0]))
+        patients.append(
+            Patient(data_participant, data_detail["response"]["docs"][0], data_quote["response"]["docs"][0]))
+
+    return patients
