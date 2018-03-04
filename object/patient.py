@@ -200,22 +200,21 @@ class Patient:
         00: ID as Integer
         01: calculate_age() -> Returns age based on DOB
         02: sex as Integer -> 0: Female, 1: Male
-        03: Employment Status as Integer -> 0: False, 1: True
+        03: Employment Status as Integer -> 0: False, 1: True (Currently Removed)
         04-14: List of pre_condition's Risk Factor
             - 0: equals null
             - 1: low
             - 2: medium
             - 3: high
-        15: People Covered as Integer
-        16: Annual Income as Integer
-        17: Marital Status as Integer -> 0: False, 1: True
-        18: calculate_bmi() -> returns BMI based on width & height
-        19: tobacco as integer -> 0: No, 1: Yes
-        20: Bronze as Integer
-        21: Silver as Integer
-        22: Gold as Integer
-        23: Platinum as Integer
-        24: Purchased as Integer
+        15: Annual Income as Integer
+        16: Marital Status as Integer -> 0: False, 1: True (Currently Removed)
+        17: calculate_bmi() -> returns BMI based on width & height
+        18: tobacco as integer -> 0: No, 1: Yes
+        19: Bronze as Integer
+        20: Silver as Integer
+        21: Gold as Integer
+        22: Platinum as Integer
+        23: Purchased as Integer
             - 0: Bronze
             - 1: Silver
             - 2: Gold
@@ -224,16 +223,18 @@ class Patient:
         """
 
         return_string = str(self.id) + "," + str(self.calculate_age()) + ","
+
         if self.sex == "M":
             return_string = return_string + "1,"
         else:
             return_string = return_string + "0,"
 
-        if self.employment_status == "Employed":
-            return_string = return_string + "1,"
-        else:
-            return_string = return_string + "0,"
+        #if self.employment_status == "Employed":
+        #    return_string = return_string + "1,"
+        #else:
+        #    return_string = return_string + "0,"
 
+        # Pre Conditions
         if len(self.pre_conditions) == 0:
             for i in range(10):
                 return_string = return_string + "0,"
@@ -241,12 +242,12 @@ class Patient:
             for pre_condition in self.pre_conditions:
                 return_string = return_string + pre_condition.get_risk_factor_as_int() + ","
 
-        return_string = return_string + str(self.people_covered) + "," + str(self.annual_income) + ","
+        return_string = return_string + str(float(self.annual_income) / 1000) + ","
 
-        if self.employment_status == "M":
-            return_string = return_string + "1,"
-        else:
-            return_string = return_string + "0,"
+        #if self.marital_status == "M":
+        #    return_string = return_string + "1,"
+        #else:
+        #    return_string = return_string + "0,"
 
         return_string = return_string + str(self.calculate_bmi()) + ","
 
