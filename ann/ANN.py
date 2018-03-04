@@ -515,10 +515,9 @@ setattr(tf.contrib.rnn.GRUCell, '__deepcopy__', lambda self, _: self)
 setattr(tf.contrib.rnn.BasicLSTMCell, '__deepcopy__', lambda self, _: self)
 setattr(tf.contrib.rnn.MultiRNNCell, '__deepcopy__', lambda self, _: self)
 
-#model = run(0.002359, 0.611705, 0.0, "111111")
+model = run(0.002359, 0.611705, 0.0, "111111")
 #pickle.dump(model, open("model.tflearn", "wb"))
 
 # Trying to predict id = 100000
 #print(predict([[27, 1, 2, 2, 1, 1, 1, 1, 1, 2, 3, 1, 200, 40.1616210938, 1]]))
 
-train()
