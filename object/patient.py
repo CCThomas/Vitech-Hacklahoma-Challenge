@@ -9,7 +9,7 @@ class Patient:
     def from_csv(self, csv_data):
         for i in range(len(csv_data)):
             if i == 0:
-                self.id = csv_data[0]
+                self.id = csv_data[0]  # Integer
             elif i == 1:
                 self.collection_id = csv_data[1]
             elif i == 2:
@@ -249,6 +249,85 @@ class Patient:
             pre_condition.from_csv(data)
             pre_conditions.append(pre_condition)
         return pre_conditions
+
+    def get_brandon_format(self):
+        """ID as Integer
+        calculate_age
+        sex as boolean.
+        0 or 1.
+        Emplyement
+        Status as Boolean.
+        0 or 1
+        List
+        of
+        pre_conditions
+        - 0
+        equals
+        null
+        - 1: low
+        - 2: medium
+        - 3: high
+        People
+        Covered as Integer
+        Annual
+        income as Integer
+        Marrital
+        Status as Bool
+        BMI
+        tabacco
+        gold
+        bronze
+        platinum
+        silver
+        purchased
+        - 0
+        through
+        3"""
+
+        return_string = str(self.id) + "," + str(self.calculate_age()) + ","
+        if self.sex == "M":
+            return_string = return_string + "1,"
+        else:
+            return_string = return_string + "0,"
+
+        if self.employment_status == "Employed":
+            return_string = return_string + "1,"
+        else:
+            return_string = return_string + "0,"
+
+        if len(self.pre_conditions) == 0:
+            return_string = return_string + "null,"
+        else:
+            for pre_condition in self.pre_conditions:
+                return_string = return_string + pre_condition.get_risk_factor_as_int() + ","
+
+        return_string = return_string + str(self.people_covered) + "," + str(self.annual_income) + ","
+
+        if self.employment_status == "M":
+            return_string = return_string + "1,"
+        else:
+            return_string = return_string + "0,"
+
+        return_string = return_string + str(self.calculate_bmi()) + ","
+
+        if self.employment_status == "Yes":
+            return_string = return_string + "1,"
+        else:
+            return_string = return_string + "0,"
+
+        return_string = return_string + str(self.bronze) + "," + str(self.silver) + "," + str(self.gold) + "," + str(self.platinum) + ","
+
+        if self.purchased == "Bronze":
+            return_string = return_string + "0"
+        elif self.purchased == "Silver":
+            return_string = return_string + "1"
+        elif self.purchased == "Gold":
+            return_string = return_string + "2"
+        elif self.purchased == "Platinum":
+            return_string = return_string + "3"
+
+        return return_string
+
 
 
 
