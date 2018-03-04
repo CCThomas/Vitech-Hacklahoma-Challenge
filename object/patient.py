@@ -223,34 +223,6 @@ class Patient:
 
         return return_string
 
-    def parse_pre_conditions(self, pre_conditions_string):
-        """
-        Parse Pre Conditions Data into a list of PreCondition Objects
-        :param pre_conditions_string: Pre Conditions Data as a String
-        :return: list of PreCondition Objects
-        """
-        pre_conditions_string = pre_conditions_string[2: len(pre_conditions_string)-2]
-        pre_conditions_array = pre_conditions_string.split("},{")
-        pre_conditions = []
-        for pre_condition_data in pre_conditions_array:
-            pre_condition = PreCondition()
-            pre_condition.from_server(pre_condition_data)
-            pre_conditions.append(pre_condition)
-        return pre_conditions
-
-    def parse_pre_conditions_from_csv(self, csv_data):
-        """
-        Parse Pre Conditions Data from CSV File, into a list of PreCondition Objects
-        :param csv_data: Pre Conditions Data from a CSV File
-        :return: list of PreCondition Objects
-        """
-        pre_conditions = []
-        for data in csv_data.split("&"):
-            pre_condition = PreCondition()
-            pre_condition.from_csv(data)
-            pre_conditions.append(pre_condition)
-        return pre_conditions
-
     def get_brandon_format(self):
         """
         Similar to get_csv_format, except formatted all strings to integers for Brandon Wong (https://github.com/BW0ng)
@@ -328,6 +300,30 @@ class Patient:
 
         return return_string + "\n"
 
+    def parse_pre_conditions(self, pre_conditions_string):
+        """
+        Parse Pre Conditions Data into a list of PreCondition Objects
+        :param pre_conditions_string: Pre Conditions Data as a String
+        :return: list of PreCondition Objects
+        """
+        pre_conditions_string = pre_conditions_string[2: len(pre_conditions_string)-2]
+        pre_conditions_array = pre_conditions_string.split("},{")
+        pre_conditions = []
+        for pre_condition_data in pre_conditions_array:
+            pre_condition = PreCondition()
+            pre_condition.initialize_from_server(pre_condition_data)
+            pre_conditions.append(pre_condition)
+        return pre_conditions
 
-
-
+    def parse_pre_conditions_from_csv(self, csv_data):
+        """
+        Parse Pre Conditions Data from CSV File, into a list of PreCondition Objects
+        :param csv_data: Pre Conditions Data from a CSV File
+        :return: list of PreCondition Objects
+        """
+        pre_conditions = []
+        for data in csv_data.split("&"):
+            pre_condition = PreCondition()
+            pre_condition.initialize_from_csv(data)
+            pre_conditions.append(pre_condition)
+        return pre_conditions
