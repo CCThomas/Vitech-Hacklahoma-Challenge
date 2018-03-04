@@ -11,7 +11,7 @@ if sys.version_info < (3, 0):
 
 patients = parse_patient_data()
 my_time = time.time()
-save_patients_to_csv("vitech_data.csv", patients)
+save_patients_to_csv("vitech_data.csv", patients, False)
 print(time.time() - my_time)
 
 

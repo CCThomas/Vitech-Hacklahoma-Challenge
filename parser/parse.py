@@ -15,7 +15,7 @@ def parse_patient_data():
     for id in range(1, 45000):
         if id % 100 == 0:
             print("Saving to vitech_data_temp.csv")
-            save_patients_to_csv("vitech_data_temp.csv", patients)
+            save_patients_to_csv("vitech_data_temp.csv", patients, True)
         print("Parsing", times, "out of 45000")
         times = times + 1
         params["q"] = "id:" + str(id)
