@@ -6,6 +6,12 @@ class PreCondition:
         self.icd_code = "null"
         self.risk_factor = "null"
 
+    def __str__(self):
+        """
+        :return: Return Condition Name
+        """
+        return self.condition_name
+
     def initialize_from_csv(self, pre_condition_as_string):
         """
         Initialize Pre Condition Object with Data read from CSV
@@ -33,12 +39,6 @@ class PreCondition:
             if key == "Risk_factor":
                 self.risk_factor = val
 
-    def __str__(self):
-        """
-        :return: Return Condition Name
-        """
-        return self.condition_name
-
     def get_csv_format(self):
         """
         :return: String of PreCondition Formatted for a CSV, similar to how it was read from the Server
@@ -55,4 +55,5 @@ class PreCondition:
             return "2"
         if self.risk_factor == "High":
             return "3"
+
 

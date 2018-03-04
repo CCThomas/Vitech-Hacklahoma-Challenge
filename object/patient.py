@@ -30,6 +30,12 @@ class Patient:
         self.collection_id = "null"
         self.id = "null"
 
+    def __str__(self):
+        """
+        :return: Return Patient ID as String
+        """
+        return str(self.id)
+
     def initialize_from_csv(self, csv_data):
         """
         Initialize Patient Object with Data read from CSV
@@ -166,12 +172,6 @@ class Patient:
         if "PURCHASED" in json_quote:
             self.purchased = json_quote["PURCHASED"]
 
-    def __str__(self):
-        """
-        :return: Return Patient ID as String
-        """
-        return str(self.id)
-
     def calculate_age(self):
         """
         :return: Calculated Age from Patient's DOB
@@ -191,37 +191,6 @@ class Patient:
         :return: Calculated BMI of Patient
         """
         return (float(self.weight) / pow((float(self.height)), 2)) * 703
-
-    def get_csv_format(self):
-        """
-        :return: String of Patient Data Formatted for a CSV, similar to how it was read from the Server
-        """
-        return_string = str(self.id) + "," + str(self.collection_id) + "," + str(self.version) + "," + str(self.city) \
-                        + "," + str(self.DOB) + "," + str(self.address).replace(",", "COMMA") + "," \
-                        + str(self.longitude) + "," + str(self.sex) + "," + str(self.state) + "," + str(self.latitude) \
-                        + "," + str(self.name).replace(",", "COMMA") + "," + str(self.employment_status) + ", "
-        if len(self.pre_conditions) >= 2:
-            for i in range(len(self.pre_conditions)-1):
-                return_string = return_string + self.pre_conditions[i].get_csv_format() + "&"
-            return_string = return_string + self.pre_conditions[len(self.pre_conditions)-1].get_csv_format() + ", " \
-                            + str(self.people_covered) + ", " + str(self.annual_income) + ", " \
-                            + str(self.marital_status) + ", " + str(self.height) + ", " + str(self.weight) + ", " \
-                            + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " \
-                            + str(self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
-        elif len(self.pre_conditions) == 1:
-            return_string = return_string + self.pre_conditions[0].get_csv_format() + ", " + str(self.people_covered) \
-                            + ", " + str(
-                self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(
-                self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(
-                self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
-        else:
-            return_string = return_string + ", " + str(
-                self.people_covered) + ", " + str(
-                self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(
-                self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(
-                self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
-
-        return return_string
 
     def get_brandon_format(self):
         """
@@ -299,6 +268,37 @@ class Patient:
             return_string = return_string + "3"
 
         return return_string + "\n"
+
+    def get_csv_format(self):
+        """
+        :return: String of Patient Data Formatted for a CSV, similar to how it was read from the Server
+        """
+        return_string = str(self.id) + "," + str(self.collection_id) + "," + str(self.version) + "," + str(self.city) \
+                        + "," + str(self.DOB) + "," + str(self.address).replace(",", "COMMA") + "," \
+                        + str(self.longitude) + "," + str(self.sex) + "," + str(self.state) + "," + str(self.latitude) \
+                        + "," + str(self.name).replace(",", "COMMA") + "," + str(self.employment_status) + ", "
+        if len(self.pre_conditions) >= 2:
+            for i in range(len(self.pre_conditions)-1):
+                return_string = return_string + self.pre_conditions[i].get_csv_format() + "&"
+            return_string = return_string + self.pre_conditions[len(self.pre_conditions)-1].get_csv_format() + ", " \
+                            + str(self.people_covered) + ", " + str(self.annual_income) + ", " \
+                            + str(self.marital_status) + ", " + str(self.height) + ", " + str(self.weight) + ", " \
+                            + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " \
+                            + str(self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
+        elif len(self.pre_conditions) == 1:
+            return_string = return_string + self.pre_conditions[0].get_csv_format() + ", " + str(self.people_covered) \
+                            + ", " + str(
+                self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(
+                self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(
+                self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
+        else:
+            return_string = return_string + ", " + str(
+                self.people_covered) + ", " + str(
+                self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(
+                self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(
+                self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
+
+        return return_string
 
     def parse_pre_conditions(self, pre_conditions_string):
         """
