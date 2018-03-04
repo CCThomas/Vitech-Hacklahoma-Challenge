@@ -136,7 +136,7 @@ class Patient:
         if "PRE_CONDITIONS" in json_detail:
             self.pre_conditions = self.parse_pre_conditions(json_detail["PRE_CONDITIONS"])
         else:
-            self.pre_conditions = "null"
+            self.pre_conditions = []
 
         if "PEOPLE_COVERED" in json_detail:
             self.people_covered = json_detail["PEOPLE_COVERED"]
@@ -213,9 +213,22 @@ class Patient:
 
     def get_csv_format(self):
         return_string = str(self.id) + "," + str(self.collection_id) + "," + str(self.version) + "," + str(self.city) + "," + str(self.DOB) + "," + str(self.address).replace(",", "COMMA") + "," + str(self.longitude) + "," + str(self.sex) + "," + str(self.state) + "," + str(self.latitude) + "," + str(self.name).replace(",", "COMMA") + "," + str(self.employment_status) + ","
-        for i in range(len(self.pre_conditions)-1):
-            return_string = return_string + self.pre_conditions[i].get_csv_format() + "&"
-        return_string = return_string + self.pre_conditions[len(self.pre_conditions)-1].get_csv_format() + ", " + str(self.people_covered) + ", " + str(self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
+        if len(self.pre_conditions) >= 2:
+            for i in range(len(self.pre_conditions)-1):
+                return_string = return_string + self.pre_conditions[i].get_csv_format() + "&"
+            return_string = return_string + self.pre_conditions[len(self.pre_conditions)-1].get_csv_format() + ", " + str(self.people_covered) + ", " + str(self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
+        elif len(self.pre_conditions) == 1:
+            return_string = return_string + self.pre_conditions[0].get_csv_format() + ", " + str(self.people_covered) + ", " + str(
+                self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(
+                self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(
+                self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
+        else:
+            return_string = return_string + ", " + str(
+                self.people_covered) + ", " + str(
+                self.annual_income) + ", " + str(self.marital_status) + ", " + str(self.height) + ", " + str(
+                self.weight) + ", " + str(self.tobacco) + ", " + str(self.gold) + ", " + str(self.bronze) + ", " + str(
+                self.silver) + ", " + str(self.platinum) + ", " + str(self.purchased) + "\n"
+
         return return_string
 
     def parse_pre_conditions(self, pre_conditions_string):
