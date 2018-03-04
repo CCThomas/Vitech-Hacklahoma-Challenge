@@ -134,8 +134,8 @@ class ANN(object):
 
 		if self.preprocessing:
 			data_processing = tflearn.data_preprocessing.DataPreprocessing()
-			data_processing.add_featurewise_stdnorm(std=74.09373752913417)
-			data_processing.add_featurewise_zero_center(mean=18.856167177006782)
+			data_processing.add_featurewise_stdnorm(std=0.2090549348314474)
+			data_processing.add_featurewise_zero_center(mean=0.3040620249839109)
 			input_layer = tflearn.input_data(shape=[None, self.input_nodes], data_preprocessing=data_processing)
 
 		else:
@@ -474,7 +474,9 @@ def run(lr=0.009, dr=0.0004, momentum=1.0, settings="111111"):
     return ann
 
 def predict(input):
-    ann = ANN(0.008090, 0.969623, 0.000000, "111111")
+    # Testing accuracy: 100.0% with LR: 0.002359, DR: 0.611705, momentum: 0.000000
+    #ann = ANN(0.008090, 0.969623, 0.000000, "111111")
+    ann = ANN(0.002359, 0.611705, 0.0, "111111")
     ann.fit()
     
     '''
@@ -513,6 +515,10 @@ setattr(tf.contrib.rnn.GRUCell, '__deepcopy__', lambda self, _: self)
 setattr(tf.contrib.rnn.BasicLSTMCell, '__deepcopy__', lambda self, _: self)
 setattr(tf.contrib.rnn.MultiRNNCell, '__deepcopy__', lambda self, _: self)
 
-#model = run(0.008090, 0.969623, 0.000000, "111111")
+#model = run(0.002359, 0.611705, 0.0, "111111")
 #pickle.dump(model, open("model.tflearn", "wb"))
-print(predict([[27, 1, 2, 2, 1, 1, 1, 1, 1, 2, 3, 1, 200, 40.1616210938, 1]]))
+
+# Trying to predict id = 100000
+#print(predict([[27, 1, 2, 2, 1, 1, 1, 1, 1, 2, 3, 1, 200, 40.1616210938, 1]]))
+
+train()
