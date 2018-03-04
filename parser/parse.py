@@ -1,6 +1,16 @@
 from object.patient import Patient
 from file.file import save_patients_to_csv
 import requests
+import urllib
+import json
+
+
+def get_param_string(params):
+    return_string = "?"
+    for param in params:
+        return_string = return_string + param + "=" + params[param] + "&"
+    return return_string
+
 
 
 def parse_patient_data():
@@ -21,10 +31,12 @@ def parse_patient_data():
         params["q"] = "id:" + str(id)
 
         # sending get request and saving the response as response object
-        my_request = requests.get(url=url_participant, params=params)
+        # my_request = requests.get(url=url_participant, params=params)
+        my_request = urllib.request.urlopen(url_participant + get_param_string(params))
 
         # extracting data in json format
-        data_participants = my_request.json()
+        # data_participants = my_request.json()
+        data_participants = json.loads(my_request.read())
 
         for data_participant in data_participants["response"]["docs"]:
 
@@ -33,12 +45,14 @@ def parse_patient_data():
             params["q"] = "id:" + str(patient_id)
 
             # Get Detail data
-            my_request = requests.get(url=url_detail, params=params)
-            data_detail = my_request.json()
+            # my_request = requests.get(url=url_detail, params=params)
+            my_request = urllib.request.urlopen(url_detail + get_param_string(params))
+            data_detail = json.loads(my_request.read()) # my_request.json()
 
             # Get Quote Data
-            my_request = requests.get(url=url_quote, params=params)
-            data_quote = my_request.json()
+            # my_request = requests.get(url=url_quote, params=params)
+            my_request = urllib.request.urlopen(url_quote + get_param_string(params))
+            data_quote = json.loads(my_request.read()) # my_request.json()
 
             # Create Patient Object
             patient = Patient()
