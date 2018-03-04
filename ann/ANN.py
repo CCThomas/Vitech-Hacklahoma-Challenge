@@ -18,7 +18,7 @@ except:
 
 global num
 
-dataFile = "./insurance"
+dataFile = "../resources/insurance"
 
 input = 15
 
