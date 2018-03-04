@@ -12,7 +12,7 @@ def load_patients_from_csv(file_name):
     csv_file = open("resources/" + file_name, "r")
     for line in csv_file.readlines():
         patient = Patient()
-        patient.from_csv(line.split(","))
+        patient.initialize_from_csv(line.split(","))
         patients.append(patient)
 
     csv_file.close()
