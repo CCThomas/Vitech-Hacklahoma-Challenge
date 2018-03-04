@@ -32,4 +32,11 @@ class PreCondition:
     def get_csv_format(self):
         return str(self.condition_name).replace(",", "COMMA") + "^" + str(self.icd_code) + "^" + str(self.risk_factor)
 
+    def get_risk_factor_as_int(self):
+        if self.risk_factor == "Low":
+            return "0"
+        if self.risk_factor == "Medium":
+            return "1"
+        if self.risk_factor == "High":
+            return "2"
 
