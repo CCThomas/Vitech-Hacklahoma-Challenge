@@ -10,10 +10,14 @@ def load_patients_from_csv(file_name):
     patients = []
 
     csv_file = open("resources/" + file_name, "r")
+    counter = 0
     for line in csv_file.readlines():
-        patient = Patient()
-        patient.initialize_from_csv(line.split(","))
-        patients.append(patient)
+        counter = counter + 1
+        if (counter > (8261793-45000)):
+            print("load counter:", counter)
+            patient = Patient()
+            patient.initialize_from_csv(line.split(","))
+            patients.append(patient)
 
     csv_file.close()
 
@@ -46,7 +50,10 @@ def save_patients_to_brandon(file_name, patients):
     """
     csv_file = open("resources/" + file_name, "w")
 
+    counter = 0
     for patient in patients:
+        print("save counter:", counter)
+        counter = counter + 1
         csv_file.write(patient.get_brandon_format())
 
     csv_file.close()

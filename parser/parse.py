@@ -1,6 +1,6 @@
 from file.file import save_patients_to_csv
 from object.patient import Patient
-import urllib
+import urllib.request
 import json
 
 
@@ -29,10 +29,10 @@ def parse_patient_data():
     patients = []
     number_of_patients_parsed = 1
     number_of_patients_to_parsed = 45000
-    for patient_id in range(1, number_of_patients_to_parsed):
+    for patient_id in range(45000, 45000 + number_of_patients_to_parsed):
         if patient_id % 100 == 0:
-            print("Saving to vitech_data_temp.csv")
-            save_patients_to_csv("vitech_data_temp.csv", patients, True)
+            print("Saving to vitech_data_temp_round_2.csv")
+            save_patients_to_csv("vitech_data_temp_round_2.csv", patients, True)
         print("Parsing", number_of_patients_parsed, "out of", number_of_patients_to_parsed)
         number_of_patients_parsed = number_of_patients_parsed + 1
 

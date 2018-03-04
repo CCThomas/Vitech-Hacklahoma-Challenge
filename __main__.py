@@ -4,6 +4,8 @@ import time
 import sys
 
 # Started 8:33:00pm
+# 37k at 5:41
+
 
 # Verify User is Using Python 3+
 if sys.version_info < (3, 0):
